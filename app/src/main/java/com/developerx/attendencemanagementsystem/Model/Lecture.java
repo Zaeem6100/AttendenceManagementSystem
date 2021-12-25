@@ -93,11 +93,12 @@ public class Lecture {
 
     public Lecture(Context mContext) {
 
+
     }
 
     public void addLectue(Context context) {
         DbUtil dbUtils = new DbUtil(context);
-        SQLiteDatabase sqLiteDatabase = dbUtils.open();
+        SQLiteDatabase sqLiteDatabase = DbUtil.sqLiteDatabase;
         ContentValues cv = new ContentValues();
         cv.put(DataSchema.Lecture.COURSE_NAME, courseName);
         cv.put(DataSchema.Lecture.COURSE_DETAILS, courceDetails);
@@ -107,7 +108,7 @@ public class Lecture {
         cv.put(DataSchema.Lecture.SELECTED_STUDENTS,selectedStudents);
 
         sqLiteDatabase.insert(DataSchema.Lecture.TABLE_NAME, null, cv);
-        dbUtils.close();
+
     }
 
 
@@ -115,7 +116,7 @@ public class Lecture {
     public List<Lecture> getLectures(Context mContext, String where) {
         List<Lecture> lectures = null;
         DbUtil dbUtils = new DbUtil(mContext);
-        SQLiteDatabase sqLiteDatabase = dbUtils.open();
+        SQLiteDatabase sqLiteDatabase = DbUtil.sqLiteDatabase;
         Cursor cursor = sqLiteDatabase.query(DataSchema.Lecture.TABLE_NAME, null, where, null, null, null, null);
         if (cursor != null)
             lectures = new ArrayList<>();
@@ -134,7 +135,6 @@ public class Lecture {
                 lectures.add(lecture);
             } while (cursor.moveToNext());
         }
-        dbUtils.close();
 
         return lectures;
     }

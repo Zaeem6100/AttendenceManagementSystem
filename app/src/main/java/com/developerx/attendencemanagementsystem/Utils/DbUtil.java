@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbUtil {
     private DBHelper dbHelper;
-    private SQLiteDatabase sqLiteDatabase;
+    public static SQLiteDatabase sqLiteDatabase;
     private static String DB_NAME = "attendance";
     private int DB_VERSION = 1;
     private  static  final  String CREATE_TABLE_STUDENT = "CREATE TABLE IF NOT EXISTS " + DataSchema.Student.TABLE_NAME + "(" + DataSchema._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -31,6 +31,7 @@ public class DbUtil {
     public DbUtil(Context context) {
 
         dbHelper = new DBHelper(context, DB_NAME, null, DB_VERSION);
+        sqLiteDatabase  = dbHelper.getWritableDatabase();
 
     }
 

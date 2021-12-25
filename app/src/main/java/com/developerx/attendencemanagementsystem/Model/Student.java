@@ -96,21 +96,21 @@ public class Student {
 
     public void addStudent(Context context) {
         DbUtil dbUtils = new DbUtil(context);
-        SQLiteDatabase sqLiteDatabase = dbUtils.open();
+        SQLiteDatabase sqLiteDatabase = DbUtil.sqLiteDatabase;
         ContentValues cv = new ContentValues();
         cv.put(DataSchema.Student.NAME, name);
         cv.put(DataSchema.Student.EMAIL_ID, emailId);
         cv.put(DataSchema.Student.PHONE_NUMBER, phoneNumber);
         cv.put(DataSchema.Student.TNUMBER, tNumber);
         sqLiteDatabase.insert(DataSchema.Student.TABLE_NAME, null, cv);
-        dbUtils.close();
+
     }
 
     @SuppressLint("Range")
     public List<Student> getStudents(Context context, String where) {
         List<Student> students = null;
         DbUtil dbUtils = new DbUtil(context);
-        SQLiteDatabase sqLiteDatabase = dbUtils.open();
+        SQLiteDatabase sqLiteDatabase = DbUtil.sqLiteDatabase;
         Cursor cursor = sqLiteDatabase.query(DataSchema.Student.TABLE_NAME, null, where, null, null, null, null);
         if (cursor != null)
             students = new ArrayList<>();
@@ -126,7 +126,7 @@ public class Student {
                 students.add(student);
             } while (cursor.moveToNext());
         }
-        dbUtils.close();
+
 
         return students;
     }

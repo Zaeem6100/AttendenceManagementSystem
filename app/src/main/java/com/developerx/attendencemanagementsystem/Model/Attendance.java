@@ -34,19 +34,18 @@ public class Attendance{
     }
     public void addAttendance(Context context) {
         DbUtil dbUtils = new DbUtil(context);
-        SQLiteDatabase sqLiteDatabase = dbUtils.open();
+        SQLiteDatabase sqLiteDatabase = DbUtil.sqLiteDatabase;
         ContentValues cv = new ContentValues();
         cv.put(DataSchema.Attendance.LECTURE_ID, lectureID);
         cv.put(DataSchema.Attendance.MARK_ATTENDANCE, markAttendance);
         cv.put(DataSchema.Attendance.STUDENT_ID, studentID);
         sqLiteDatabase.insert(DataSchema.Attendance.TABLE_NAME, null, cv);
-        dbUtils.close();
     }
 
     @SuppressLint("Range")
     public List<Attendance> getAttendance(Context context, String where) {
         List<Attendance> attendances = null;
-        SQLiteDatabase sqLiteDatabase = DbUtil.open();
+        SQLiteDatabase sqLiteDatabase = DbUtil.sqLiteDatabase;
         Cursor cursor = sqLiteDatabase.query(DataSchema.Attendance.TABLE_NAME, null, where, null, null, null, null);
         if (cursor != null)
             attendances = new ArrayList<>();
@@ -62,7 +61,6 @@ public class Attendance{
                 attendances.add(attendance);
             } while (cursor.moveToNext());
         }
-        DbUtil.close();
 
         return attendances;
     }
