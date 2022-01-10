@@ -388,7 +388,7 @@ public class LectureDashboardActivity extends AppCompatActivity {
 
                 count++;
 
-                if (count == 1) {// TODO this is for HTC MOBILE......
+                if (count == 1) {
                     TimePickerFragment timePickerFragment = new TimePickerFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("from", getArguments().getString("from"));
